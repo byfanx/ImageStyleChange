@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>图像风格转换</title>
+    <!-- 设置网页图标 -->
+    <link rel="Shortcut Icon" href="../static/images/logo2.ico" />
+    <!-- 引入bootstrap的css文件 -->
+<!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="../static/css/font-awesome.min.css">-->
+    <!-- 引入文件上传的css组件 -->
+<!--    <link rel="stylesheet" href="../static/css/fileinput.min.css">-->
+    <!-- 引入自定义的css -->
+    <link rel="stylesheet" href="../static/css/index.css">
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">-->
+
+    <!-- 引入bootstrap的js文件 -->
+<!--    <script src="../static/js/bootstrap.min.js"></script>-->
+    <!-- 引入jquery文件 -->
+<!--    <script src="../static/js/jquery.min.js"></script>-->
+<!--    <script src="../static/js/jquery-3.3.1.js"></script>-->
+    <!-- 引入文件上传的js文件 -->
+<!--    <script src="../static/js/fileinput.min.js"></script>-->
+    <!-- 引入文件上传的语言文件 -->
+<!--    <script src="../static/js/zh.js"></script>-->
+
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="top">
+        <div id="top-left">
+            <img id="left-logo" src="../static/images/logo2.png">
+            <span id="left-title"><font face="STCaiyun">图像风格转换</font></span>
+        </div>
+        <div id="top-right">
+            <div>
+              <a class="dropdown-toggle" id="dropdownMenu2" style="position: absolute;right: 50px;line-height:70px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span id="right-name">{{ request.session.userName }}</span>
+                  <span id="userId" style="display: none">{{ request.session.userId }}</span>
+                  <span class="caret"></span>
+
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu" style="left: 195px;min-width: 120px;">
+                <li>
+                    <a data-toggle="modal" data-target="#customerEditDialog" data-whatever="用户设置" onclick="setUser()">
+                        <i class="fa fa-user fa-fw"></i>用户设置
+                    </a>
+                </li>
+                <li><a href="/"><i class="fa fa-sign-out fa-fw"></i>退出登录</a></li>
+                </ul>
+                <img id="right-touxiang" src="{{ request.session.avatarUrl }}">
+            </div>
+
+        </div>
+    </div>
+
+    <!--  分割区  -->
+    <div class="divider"></div>
+
+
+
+    <!--  修改个人信息模态框  -->
+    <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+<!--                    <form action="" method="post" class="form-horizontal" id="edit_film_form" enctype="multipart/form-data">-->
+                    <div class="form-horizontal" id="edit_film_form">
+                        <!-- 影片id -->
+
+                        <div class="form-group">
+                            <label for="user_name" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="user_name" placeholder="用户名" name="filmName" value="{{ request.session.userName }}">
+                            </div>
+                        </div>
+                        <div class="form-group" id="add_coverImg">
+                            <label for="changetouxiang" class="col-sm-2 control-label">头像</label>
+                            <div class="col-sm-5" align="center">
+                                <img id="touxiang" src="{{ request.session.avatarUrl }}" style="width: 50px;height: 50px;border-radius: 50%;">
+                            </div>
+                            <div class="col-sm-2" align="center">
+                                <input type="file" style="display: none;" class="form-control" id="changetouxiang" name="file" accept="image/*">
+                                <button type="button" id="changAvaButton" class="btn btn-default" onclick="changeAva()">上传文件</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" placeholder="输入邮箱地址" name="email" value="{{ request.session.email }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" placeholder="" name="password" value="{{ request.session.password }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="re_password" class="col-sm-2 control-label">确认密码</label>
+                            <div class="col-sm-10">
+                                <input id="re_password" type="password" class="form-control" name="re_password">
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" id="update" class="btn btn-primary" onclick="update()">
+                                保存修改
+                            </button>
+
+                        </div>
+                    </div>
+<!--                    </form>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="mid">
+        <div id="mid-left">
+            <div id="mid-left-img">
+                <img id="oldimg" class="image" src=""/>
+            </div>
+            <a href="" class="btn-primary filebutton">选择图片
+                <input type="file" name="" id="upLoad" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
+            </a>
+
+        </div>
+        <div id="mid-right">
+            <div id="mid-right-img">
+                <img id="newimg" class="image" src=""/>
+                <!-- 风格迁移的原图  -->
+                <img id="models_img" src="" style="position: absolute;float: right;width: 150px;right: -1px; bottom: -1px;display: none;border-top: 1px solid rgb(44, 103, 205);border-left: 1px solid rgb(44, 103, 205);">
+            </div>
+            <!-- download 属性定义了下载链接的地址。这样href 属性必须在 <a> 标签中指定。属性同样可以指定下载文件的名称。文件名称没有限定值，浏览器会自动在文件名称末尾添加该下载文件的后缀 (.img, .pdf, .txt, .html, 等)。 -->
+            <a href="javascript:;" id="down" class="btn-primary filebutton" download>下载图片</a>
+        </div>
+        <div id="mid-list">
+            <div class="radios">
+                <input type="radio" id="original" name="fengge" value="original" onclick="changeStyle(this)" checked>
+                <span>原图</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="cartoon" name="fengge" value="cartoon" onclick="changeStyle(this)">
+                <span>卡通</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="sketch" name="fengge" value="sketch" onclick="changeStyle(this)">
+                <span>素描</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="LineDraft" name="fengge" value="LineDraft" onclick="changeStyle(this)">
+                <span>线稿</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="gray" name="fengge" value="gray" onclick="changeStyle(this)">
+                <span>灰度</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="emboss" name="fengge" value="emboss" onclick="changeStyle(this)">
+                <span>浮雕</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="dipian" name="fengge" value="dipian" onclick="changeStyle(this)">
+                <span>负片</span>
+            </div>
+
+            <div class="radios">
+                <input type="radio" id="strimg" name="fengge" value="strimg" onclick="changeStyle(this)">
+                <span>字符画</span>
+            </div>
+            <div class="radios">
+                <input type="radio" id="strimgColor" name="fengge" value="strimgColor" onclick="changeStyle(this)">
+                <span>彩色字符画</span>
+            </div>
+            <div>
+                <span>字符：</span>
+                <input type="text" id="strimgColorIn" value="ABCDE" style="width:125px">
+            </div>
+            <div style="line-height:30px;">
+                <span>风格迁移：</span>
+                <select id="transfer" style="height: 27px">
+                    <option name="原图" value="original" selected>--请选择--</option>
+                    <option name="梵高-星空" value="starry_night">梵高-星空</option>
+                    <option name="毕加索-缪斯" value="la_muse">毕加索-缪斯</option>
+                    <option name="蒙克-呐喊" value="the_scream">蒙克-呐喊</option>
+                    <option name="葛饰北斋-神奈川巨浪" value="wave">葛饰北斋-神奈川巨浪</option>
+                    <option name="皮卡比亚-乌德妮" value="udnie">皮卡比亚-乌德妮</option>
+                    <option name="康定斯基-构成第七号" value="composition_vii">康定斯基-构成第七号</option>
+                    <option name="缤纷糖果" value="candy">缤纷糖果</option>
+                    <option name="多彩羽毛" value="feathers">多彩羽毛</option>
+                    <option name="年轻女子" value="mosaic">年轻女子</option>
+                </select>
+            </div>
+            <div style="line-height:30px;">
+                <span>镜像：</span>
+                <select id="jingxiang" style="height: 27px">
+                    <option name="原图" value="original" selected>--请选择--</option>
+                    <option name="垂直镜像" value="xFlip">垂直镜像</option>
+                    <option name="水平镜像" value="yFlip">水平镜像</option>
+                    <option name="对角镜像" value="centre">对角镜像</option>
+                </select>
+            </div>
+
+<!--            <div class="radios">-->
+<!--                <input type="radio" id="xFlip" name="fengge" value="xFlip" onclick="changeStyle(this)">-->
+<!--                <span>垂直翻转</span>-->
+<!--            </div>-->
+<!--            <div class="radios">-->
+<!--                <input type="radio" id="yFlip" name="fengge" value="yFlip" onclick="changeStyle(this)">-->
+<!--                <span>水平翻转</span>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+<!--    <div class="divider"></div>-->
+    <div id="foot">
+        <div class="image">
+            <span class="">Copyright © byFan</span>
+        </div>
+    </div>
+
+    <script src="../static/js/index.js"></script>
+    <script type="text/javascript">
+
+
+        // // 全局变量：用户的id
+        // var userid = $('#userId').text()
+        // // 全局变量：原图片上传之后的文件名
+        // var FILENAME;
+        // // 全局变量：当前转换风格之后的文件名，用于下载文件
+        // var DOWN_FILENAME
+        //
+        //
+        // /**
+        //  * 监听选择文件框的状态，有改变之后就进行上传文件
+        //  */
+        // $('body').on('change','#upLoad',function () {
+        //
+        //     console.log("userid=",userid)
+        //
+        //     // var oldimg = $('#oldimg').attr("src")
+        //     // console.log("oldimg=",oldimg)
+        //
+        //     var formData = new FormData();
+        //     var name = $($(this)).val();
+        //     var files = $($(this))[0].files[0];
+        //     formData.append("file",files)
+        //     console.log(files)
+        //     formData.append("name",name)
+        //     console.log(name)
+        //     formData.append("userId",userid)
+        //
+        //     // 如果选择文件不为空
+        //     if (files != undefined){
+        //         console.log("选择文件完成，开始提交")
+        //
+        //         // 重新选择了新的图片之后，就把转换图片的框清空
+        //         // $('#newimg').attr("src","")
+        //
+        //         // 每次选择图片之前先清除图片框的css样式
+        //         $("#oldimg").removeClass("imageHeight","imageWidth");
+        //         $("#newimg").removeClass("imageHeight","imageWidth");
+        //
+        //         // 每次选择新图片时单选框选择原图
+        //         $("#original").prop("checked","checked");
+        //
+        //         //初始化FileReader对象
+        //         var reader = new FileReader();
+        //         // 读取图片文件
+        //         reader.readAsDataURL(files);
+        //         reader.onload = function (e){
+        //             // 初始化JavaScript图片对象
+        //             var image = new Image();
+        //             // FileReader获得Base64字符串
+        //             image.src = e.target.result;
+        //             image.onload = function (){
+        //                 // 获得图片宽高
+        //                 var width = image.width;
+        //                 var height = image.height;
+        //
+        //                 if (width>=600 || height>=500){
+        //                     if (width>=height+100){
+        //                         $("#oldimg").addClass("imageWidth");
+        //                         $("#newimg").addClass("imageWidth");
+        //                     }else {
+        //                         $("#oldimg").addClass("imageHeight")
+        //                         $("#newimg").addClass("imageHeight")
+        //                     }
+        //                 }
+        //
+        //                 // 将图片的宽高添加到请求数据中
+        //                 formData.append("width",width);
+        //                 formData.append("height",height)
+        //                 console.log("width=",width,"\theight=",height);
+        //             }
+        //         }
+        //
+        //         // 开始发送ajax请求上传图片
+        //         $.ajax({
+        //             url:'/upload',
+        //             type:'POST',
+        //             data:formData,
+        //             processData: false,  // 告诉jQuery不要去处理发送的数据
+        //             contentType: false,  // 告诉jQuery不要去设置Content-Type请求头
+        //             dataType:'json',
+        //             success:function (res){
+        //                 // 拼接图片的完成请求路径。路径+文件名
+        //                 var imgSrc = res.data.fileUrl+res.data.fileName;
+        //                 FILENAME = res.data.fileName;
+        //                 console.log(imgSrc);
+        //                 // document.getElementById('imgg').src = imgSrc;
+        //                 $('#oldimg').attr("src",imgSrc)
+        //                 $('#newimg').attr("src",imgSrc)
+        //
+        //                 $('#down').attr("href",imgSrc);
+        //             },
+        //             error:function (res){
+        //                 alert("文件上传失败，请检查文件格式和大小")
+        //             }
+        //         });
+        //     }
+        //     else {
+        //         alert("没有选择文件")
+        //     }
+        // })
+        //
+        //
+        // /**
+        //  * 选择转换风格之后，开始请求后台进行转换
+        //  * @param e 当前选中的单选框标签
+        //  */
+        // function changeStyle(e) {
+        //     if (FILENAME == undefined) {
+        //         alert("请先上传图片")
+        //     } else {
+        //         // 获取单选框的值，也就是转换的类型，与后台的请求接口相对应
+        //         var style = e.value;
+        //         // console.log(style);
+        //         // console.log(FILENAME);
+        //
+        //         $.ajax({
+        //             // 拼接请求的url
+        //             url: '/' + style,
+        //             type: 'POST',
+        //             // 参数为
+        //             data: {"user_id": userid, "fileName": FILENAME},
+        //             dataType: 'json',
+        //             success: function (res) {
+        //                 DOWN_FILENAME = res.data.fileName;
+        //                 var imgSrc = res.data.fileUrl + res.data.fileName;
+        //                 console.log(imgSrc);
+        //                 // document.getElementById('imgg').src = imgSrc;
+        //                 $('#newimg').attr("src", imgSrc);
+        //                 // 将图片地址添加到“下载文件”的标签链接中
+        //                 $('#down').attr("href", imgSrc);
+        //             },
+        //             error: function (res) {
+        //                 alert("转换失败，请重试")
+        //             }
+        //         })
+        //     }
+        // }
+
+
+
+    </script>
+
+
+</body>
+</html>

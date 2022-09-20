@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图像风格转换</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+lalala
+<p id="userId">{{ request.session.userId }}</p>
+<form action="upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="upLoad" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
+    <input type="hidden" name="userId" value="{{ request.session.userId }}">
+    <button type="submit" value="上传文件">上传文件</button>
+<!--    <button type="button" value="上传文件" id="sc" onclick="shangchaun()">上传文件</button>-->
+</form>
+{{data}}
+<br>
+<!--<img id="oldimg" src="{{ data.fileUrl }}{{ data.fileName }}">-->
+<img id="oldimg" src="/static/images/test.jpg" />
+
+<form action="download" method="post">
+<!--    <input type="hidden" name="userId" value="{{ request.session.userId }}">-->
+    <input type="text" name="fileName">
+    <button  type="submit">下载文件</button>
+</form>
+
+<div class="dropdown clearfix">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
+                    <span id="right-name">{{ request.session.userName }}</span>
+<!--                    <span id="userId" style="display: none">{{ request.session.userId }}</span>-->
+<!--                    <img id="right-touxiang" src="../static/images/moren.jpg">-->
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><i class="fa fa-user fa-fw"></i>用户设置</li>
+                    <li class="divider"></li>
+                    <li><a href="@{/}"><i class="fa fa-sign-out fa-fw"></i>退出登录</a></li>
+                </ul>
+            </div>
+
+<div class="dropup">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropup
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customerEditDialog" data-whatever="添加">查看</button>
+
+    <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改影片信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/upload" method="post" class="form-horizontal" id="edit_film_form" enctype="multipart/form-data">
+                        <!-- 影片id -->
+                        <input type="hidden" id="film_Id" name="filmId"/>
+                        <div class="form-group">
+                            <label for="film_Name" class="col-sm-2 control-label">影片名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="film_Name" placeholder="影片名称" name="filmName">
+                            </div>
+                        </div>
+                        <div class="form-group" id="add_coverImg">
+                            <label for="film_coverImg" class="col-sm-2 control-label">影片封面</label>
+                            <div class="col-sm-10" align="center">
+                                <input type="file" class="form-control" id="film_coverImg" name="file">
+                                <img id="CoverImg" src="/img/bg.png" style="width: 85px;height: 100px">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="film_classify" class="col-sm-2 control-label">影片类型</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="film_classify" placeholder="影片类型" name="classify">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="film_director" class="col-sm-2 control-label">导演</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="film_director" placeholder="导演" name="director">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="film_movie" class="col-sm-2 control-label">上传影片</label>
+                            <div class="col-sm-10">
+                                <input id="movie" type="text" class="form-control" name="movie" disabled>
+                                <input type="file" class="form-control" id="film_movie" name="file">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="film_showtime" class="col-sm-2 control-label">上映时间</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="film_showtime" placeholder="影片上映时间" name="showtime">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="film_sketch" class="col-sm-2 control-label">简述</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="film_sketch" placeholder="简述" name="sketch">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" id="update" class="btn btn-primary" style="display: none;" onclick="update()">
+                                保存修改
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+
+    // console.log($('#userId'))
+    var userid = $("#userId").text();
+    $('body').on('change','#upLoad',function () {
+
+        console.log("userid=",userid)
+
+        var oldimg = $('#oldimg').attr("src")
+        console.log("oldimg=",oldimg)
+
+        var formData = new FormData();
+        var name = $($(this)).val();
+        var files = $($(this))[0].files[0];
+        formData.append("file",files)
+        console.log(files)
+        formData.append("name",name)
+        console.log(name)
+        formData.append("userId",userid)
+        if (files != undefined){
+            console.log("选择文件完成，开始提交")
+            //初始化FileReader对象
+            var reader = new FileReader();
+            // 读取图片文件
+            reader.readAsDataURL(files);
+            reader.onload = function (e){
+                // 初始化JavaScript图片对象
+                var image = new Image();
+                // FileReader获得Base64字符串
+                image.src = e.target.result;
+                image.onload = function (){
+                    // 获得图片宽高
+                    var width = image.width;
+                    var height = image.height;
+                    console.log("width=",width,"\theight=",height);
+                }
+            }
+
+            // 开始发送ajax请求上传图片
+            // $.ajax({
+            //     url:'/upload',
+            //     type:'POST',
+            //     data:formData,
+            //     processData: false,  // 告诉jQuery不要去处理发送的数据
+            //     contentType: false,  // 告诉jQuery不要去设置Content-Type请求头
+            //     dataType:'json',
+            //     success:function (res){
+            //         var imgSrc = res.data.fileUrl+res.data.fileName;
+            //         // console.log(imgSrc);
+            //         // document.getElementById('imgg').src = imgSrc;
+            //         $('#oldimg').attr("src",imgSrc)
+            //     },
+            //     error:function (res){
+            //         alert(res)
+            //     }
+            // });
+        }else {
+            console.log("没有选择文件")
+        }
+    })
+</script>
+</body>
+</html>

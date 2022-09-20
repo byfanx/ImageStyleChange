@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://www.17sucai.com/preview/1424582/2019-11-22/cc/index.html -->
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>登录 | 注册</title>
+    <!-- 设置网页图标 -->
+    <link rel="Shortcut Icon" href="../static/images/logo2.ico" />
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <div class="content {% if flag == 0 %} s--signup {% endif %}">
+        <form action="/login" method="post">
+            <div class="form sign-in">
+                <h2>欢迎回来</h2>
+                <br>
+                <br>
+                <label>
+                    <span>用户名</span>
+                    <input type="text" id="username1" name="username" value="{{ username }}">
+                </label>
+                <label>
+                    <span>密码</span>
+                    <input type="password" id="password1" name="password">
+                </label>
+<!--    {#            <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>#}-->
+                <p class="forgot-pass" style="color: red">{% if flag == 1 %} {{ msg }} {% endif %}</p>
+                <button type="submit" class="submit">登 录</button>
+<!--                <button type="button" class="submit" onclick="denglu()">登 录</button>-->
+<!--    {#            <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>#}-->
+            </div>
+        </form>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>还未注册？</h2>
+                    <p>立即注册，发现大量机会！</p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>已有帐号？</h2>
+                    <p>有帐号就登录吧，好久不见了！</p>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">注 册</span>
+                    <span class="m--in">登 录</span>
+                </div>
+            </div>
+            <form action="/register" method="post">
+                <div class="form sign-up">
+                    <h2>立即注册</h2>
+                    <label>
+                        <span>用户名</span>
+                        <input type="text" name="username" value="{{ user.username }}">
+                    </label>
+
+                    <label>
+                        <span>邮箱</span>
+                        <input type="email" name="email" value="{{ user.email }}">
+                    </label>
+                    <label>
+                        <span>密码</span>
+                        <input type="password" name="password" value="{{ user.password }}">
+                    </label><label>
+                        <span>确认密码</span>
+                        <input type="password" name="repassword">
+                    </label>
+                    <p class="forgot-pass" style="color: red">{% if flag == 0 %} {{ msg }} {% endif %}</p>
+                    <button type="submit" class="submit">注 册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/js/jquery-3.3.1.js"></script>
+<!--    <script src="../static/js/login.js"></script>-->
+    <script type="text/javascript">
+        document.querySelector('.img__btn').addEventListener('click', function() {
+            document.querySelector('.content').classList.toggle('s--signup');
+        })
+
+        function denglu(){
+            var username = $('#username1').val()
+            var password = $('#password1').val()
+            alert(username+" "+password)
+            $.ajax({
+                type:'POST',
+                url:'/login',
+                data:{
+                    'username':username,
+                    'password':password
+                },
+                success:function (result){
+                    alert(result)
+                },
+                error:function (e){
+                    console.log(e)
+                }
+            })
+        }
+
+    </script>
+
+
+<!--<span id="pinbox-extension-installed"></span>-->
+</body>
+</html>

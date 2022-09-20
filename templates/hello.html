@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Django</title>
+</head>
+<body>
+Hello Django
+lalala
+{{ str }}
+<img src="/static/{{ imgUrl }}">
+<input type="file" id="oldImg">
+<input type="button" value="提交" id="tijiao" onclick="tijiao()">
+<script type="text/javascript">
+    function tijiao() {
+        var obj = document.getElementById("oldImg");
+        var filename = obj[i].name;
+        alert(filename);
+        console.log(filename);
+    }
+</script>
+</body>
+</html>

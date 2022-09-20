@@ -1,0 +1,201 @@
+body{
+    width: 100%;
+    margin: 0px;
+    min-width: 1400px;
+    background-color: white;
+}
+#top{
+    background-color: #fdfdfd;
+    height: 70px;
+    margin: 0px;
+}
+
+#top-left{
+    /*display: flex;*/
+    position: relative ;
+    float: left;
+    left: 2.5%;
+    width: 300px;
+    height: 70px;
+}
+
+#left-logo{
+    margin-top: 5px;
+    /*width: 53px;*/
+    width: 68px;
+    height: 60px;
+    border-radius: 4px;
+}
+#left-title{
+    position: absolute;
+    margin-left: 15px;
+    line-height: 70px;
+    /*font-family: "宋体";*/
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#top-right{
+    /*background-color: red;*/
+    position: relative ;
+    float: right;
+    right: 25px;
+    width: 300px;
+    height: 70px;
+
+}
+#right-name{
+    position: absolute;
+    float: right;
+    right: 15px;
+    line-height:70px;
+}
+
+
+#right-touxiang{
+    position: absolute;
+    border-radius: 50%;
+    margin-top: 15px;
+    float: right;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+
+}
+
+/* 功能封装:专门用于做间隔的类 */
+.divider{
+    height: 20px;
+    background-color:#fdfdfd;
+    box-shadow: 0 5px 5px rgb(205, 205, 205) inset;
+
+}
+
+
+#mid{
+    position: relative;
+    /*top:22%;*/
+    width: 100%;
+    height: 500px;
+}
+
+#mid-left{
+    position: absolute;
+    float: left;
+    left: 50px;
+    width: 600px;
+    /*height: 600px;*/
+    /*border: 1px solid darkred;*/
+}
+#mid-left-img{
+    background-color: #fdfdfd;
+    width: 600px;
+    height: 500px;
+    border: 1px solid rgb(205, 205, 205);
+    position: relative;
+}
+
+.image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.imageWidth{
+    width: 100%;
+    height: auto;
+}
+.imageHeight{
+    height: 100%;
+    width: auto;
+}
+
+
+
+.filebutton {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin: 20px 40%;
+    overflow: hidden;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.filebutton input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.filebutton:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+
+#mid-right{
+    position: absolute;
+    float: left;
+    left: 710px;
+    width: 600px;
+    /*height: 500px;*/
+    /*border: 1px solid rgb(44, 103, 205)*/
+}
+
+#mid-right-img{
+    background-color: #fdfdfd;
+    width: 600px;
+    height: 500px;
+    border: 1px solid rgb(205, 205, 205);
+    position: relative;
+}
+
+
+
+#mid-list{
+    position: absolute;
+    float: left;
+    left: 1340px;
+    width: 180px;
+    height: 550px;
+}
+
+.radios{
+    position: relative;
+    margin-top: 5px;
+    font-size: 15px;
+    height: 30px;
+}
+.radios input{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 10%;
+    bottom: 10%;
+}
+
+.radios span{
+    position: absolute;
+    margin-left: 20px;
+    line-height: 30px;
+}
+
+
+#foot{
+    position: relative;
+    float: bottom;
+    bottom: 0px;
+    background-color: #eae8e8;
+    width: 100%;
+    min-width: 1400px;
+    height: 51px;
+    margin-top: 80px;
+}
+
+
